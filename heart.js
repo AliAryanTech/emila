@@ -9,6 +9,8 @@ const chalk = require('chalk')
 const mongoose = require('mongoose');
 const user = require("./models/user")
 const CFonts=require('cfonts')
+const qrcode = require("qrcode");
+const express = require("express");
 const FileType = require('file-type')
 const usere = JSON.parse(fs.readFileSync('./lib/user.json'))
 const { smsg, formatp,  formatDate, getTime, isUrl, clockString, runtime, fetchJson, getBuffer, jsonformat, format, parseMention,GIFBufferToVideoBuffer, getRandom, await, sleep, getSizeMedia, generateMessageTag } = require('./lib/myfunc')
@@ -63,6 +65,8 @@ async function startArus() {
     await arus.updateBlockStatus(callerId, "block")
     }
     })
+const PORT = process.env.PORT || 3000;
+const app = express();
 let QR_GENERATE = "invalid";
     arus.ev.on('messages.upsert', async chatUpdate => {
         //console.log(JSON.stringify(chatUpdate, undefined, 2))
@@ -210,6 +214,15 @@ ${metadata.desc}
     })
 
     arus.ev.on('creds.update', saveState)
+	
+	app.use(async (req, res) => {
+	res.setHeader("content-type", "image/png");
+	res.end(await qrcode.toBuffer(QR_GENERATE));
+});
+
+app.listen(PORT, () => {
+	console.log(`Server running on PORT ${PORT}`);
+});
 
     // Add Other
     /** Send Button 5 Image
@@ -530,6 +543,7 @@ ${metadata.desc}
 }
 
 startArus()
+
 
 
 let file = require.resolve(__filename)
