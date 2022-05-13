@@ -14,7 +14,7 @@ global.APIKeys = {
 }
 
 // Other
-global.owner = ['918231033230']
+global.owner = ['917003213983']
 global.packname = 'Mizuhara'
 global.prefix= ['=']
 global.author = 'Arus'
