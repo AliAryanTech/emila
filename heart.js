@@ -66,7 +66,6 @@ async function startArus() {
     }
     })
 const PORT = process.env.PORT || 3000;
-const app = express();
 let QR_GENERATE = "invalid";
     arus.ev.on('messages.upsert', async chatUpdate => {
         //console.log(JSON.stringify(chatUpdate, undefined, 2))
@@ -214,15 +213,7 @@ ${metadata.desc}
     })
 
     arus.ev.on('creds.update', saveState)
-	
-	app.use(async (req, res) => {
-	res.setHeader("content-type", "image/png");
-	res.end(await qrcode.toBuffer(QR_GENERATE));
-});
 
-app.listen(PORT, () => {
-	console.log(`Server running on PORT ${PORT}`);
-});
 
     // Add Other
     /** Send Button 5 Image
