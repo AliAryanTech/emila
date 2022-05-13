@@ -613,8 +613,14 @@ case 'getgif':
 	if (!q) return m.reply("❌ No query provided!")
 		try {
 		               let { data: gi } = await axios.get(`https://g.tenor.com/v1/search?q=${q}&key=LIVDSRZULELA&limit=8`)
+
+const response = await axios.get(gi.results?.[Math.floor(Math.random() * gi.results.length)]?.media[0]?.mp4?.url,  { responseType: 'arraybuffer' })
+        const buffer = Buffer.from(response.data, "utf-8")
+		var sgif = await GIFBufferToVideoBuffer(buffer)
+		arus.sendMessage(m.chat,{video: sgif, gifPlayback:true,caption: "Here you go"},{quoted:m})
+
 				  
- arus.sendMessage(m.chat, { video: { url: gi.results?.[Math.floor(Math.random() * gi.results.length)]?.media[0]?.mp4?.url }, caption: "Here you go",gifPlayback: true }, { quoted: m })
+//arus.sendMessage(m.chat, { video: { url: gi.results?.[Math.floor(Math.random() * gi.results.length)]?.media[0]?.mp4?.url }, caption: "Here you go" ,gifPlayback: true }, { quoted: m })
 		} catch (err) {
 			m.reply("No gif found")
 		}
