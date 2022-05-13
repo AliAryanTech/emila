@@ -928,7 +928,7 @@ case 'pinterest':{
 				let rando =  result[Math.floor(Math.random() * result.length)]			
     arus.sendMessage(m.chat,{image:{url: rando},caption:"here you go"},{quoted:m,})
 	} catch {
-		m.reply('')
+		m.reply('Could not find any image')
 	}
 }
 break
@@ -1282,6 +1282,7 @@ case 'yts': case 'ytsearch': {
 break
 case 'sr': {
 	if (!q) m.reply(`❌ No query provided!`)
+        try {
 	const response1 = await axios.get('https://meme-api.herokuapp.com/gimme/' + q + '/');
              const {
                     postLink,
@@ -1292,6 +1293,9 @@ case 'sr': {
                     spoiler
                 } = response1.data
 				arus.sendMessage(m.chat,{image:{url:url},caption:`*Url*: ${url}\n*Title*: ${title}\n*Postlink*: ${postLink}`},{quoted:m,})
+} catch {
+m.reply("Could not find any Subreddit")
+}
 				
 }
 break
