@@ -65,8 +65,6 @@ async function startArus() {
     await arus.updateBlockStatus(callerId, "block")
     }
     })
-const PORT = process.env.PORT || 3000;
-let QR_GENERATE = "invalid";
     arus.ev.on('messages.upsert', async chatUpdate => {
         //console.log(JSON.stringify(chatUpdate, undefined, 2))
         try {
@@ -213,7 +211,6 @@ ${metadata.desc}
     })
 
     arus.ev.on('creds.update', saveState)
-
 
     // Add Other
     /** Send Button 5 Image
